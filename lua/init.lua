@@ -102,3 +102,4 @@ function toggleSpellcheck()
 end
 
 vim.keymap.set('n', [[<leader>\]], toggleSpellcheck, { desc = "Toggles spellchecking" })
+vim.keymap.set('i', '<M-L>', '<C-g>u<Esc>[s1z=`]a<C-g>u', { desc = "Correct the most recent spellcheck error." })

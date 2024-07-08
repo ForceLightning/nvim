@@ -76,6 +76,10 @@ return {
                 --   To jump back, press <C-t>.
                 map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
+                map('gsd', function()
+                    require('telescope.builtin').lsp_definitions({ jump_type = "vsplit", reuse_win = true })
+                end, '[G]oto [D]efinitions ([S]plit)')
+
                 -- Find references for the word under your cursor.
                 map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
@@ -171,11 +175,17 @@ return {
         --      - settings (table): Override the default settings passed when initalising the
         --          server. For example, to see the options for `lua_ls`, you could go to:
         --          https://luals.github.io/wiki/settings/
+        local virtualenvs_dir = vim.fn.expand("$HOME/.virtualenvs/")
         local servers = {
             clangd = {},
             -- gopls = {},
             basedpyright = {
-                root_dir = require('lspconfig.util').find_git_ancestor
+                root_dir = require("lspconfig.util").find_git_ancestor,
+                settings = {
+                    analysis = {
+                        venvPath = virtualenvs_dir,
+                    },
+                },
             },
             -- rust_analyzer = {},
             lua_ls = {

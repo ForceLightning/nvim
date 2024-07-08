@@ -18,7 +18,7 @@ return {
         local slow_format_filetypes = {}
         require("conform").setup({
             formatters_by_ft = {
-                python = { "black" },
+                python = { "isort", "black" },
                 rust = { "rustfmt" },
             },
 

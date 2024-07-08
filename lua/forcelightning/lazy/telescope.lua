@@ -60,16 +60,6 @@ return {
                         require('telescope.themes').get_dropdown(),
                     },
                 },
-                pickers = {
-                    find_files = {
-                        mappings = {
-                            i = {
-                                ["<C-s>"] = require('telescope.actions').select_vertical,
-                                ["<C-v>"] = require('telescope.actions').select_horizontal,
-                            }
-                        }
-                    }
-                },
                 defaults = {
                     vimgrep_arguments = {
                         "ag",

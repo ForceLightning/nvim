@@ -12,7 +12,7 @@ else
 endif
 " set statusline=2
 set number relativenumber
-set spelllang=en_uk
+set spelllang=en_gb
 set backspace=indent,eol,start
 set autoindent
 set smartindent
@@ -29,7 +29,7 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 
 set hidden
 
-set cmdheight=2
+set cmdheight=1
 set updatetime=300
 set shortmess+=c
 
@@ -47,4 +47,4 @@ nmap <silent> <M-B> <Plug>(pydocstring)
 cmap w!! w !sudo tee > /dev/null %
 
 " Automatically correct spellcheck errors in line.
-inoremap <M-L> <C-g>u<Esc>[s1z=`]a<C-g>u
+" inoremap <M-L> <C-g>u<Esc>[s1z=`]a<C-g>u

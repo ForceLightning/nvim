@@ -23,7 +23,18 @@ return {
                 vim.keymap.set("n", "<leader>gP", function()
                     vim.cmd.Git({ 'pull', '--rebase' })
                 end, { buffer = bufnr, remap = false, desc = "[G]it [P]ull (rebase)" });
+
+                -- Git blame the current file
+                vim.keymap.set("n", "<leader>gb", function()
+                    vim.cmd.Git('blame')
+                end, { buffer = bufnr, remap = false, desc = "[G]it [B]lame" })
             end,
         })
+
+        vim.api.nvim_command([[
+            hi DiffAdd gui=NONE guifg=green guibg=black
+            hi DiffChange gui=NONE guifg=yellow guibg=black
+            hi DiffDelete gui=NONE guifg=red guibg=black
+        ]])
     end
 }

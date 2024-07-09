@@ -22,6 +22,8 @@ return {
 
             -- Useful for getting pretty icons, but requires a Nerd Font.
             { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+
+            { 'Marskey/telescope-sg' },
         },
         config = function()
             -- Telescope is a fuzzy finder that comes with a lot of different things that it can fuzzy
@@ -59,6 +61,14 @@ return {
                     ['ui-select'] = {
                         require('telescope.themes').get_dropdown(),
                     },
+                    ast_grep = {
+                        command = {
+                            "sg",
+                            "--json=stream",
+                        },                       -- must have `--json=stream` to work with telescope
+                        grep_open_files = false, -- search in opened files
+                        lang = nil,              -- string value, specify language for ast-grep `nil` for default.
+                    },
                 },
                 defaults = {
                     vimgrep_arguments = {
@@ -89,6 +99,7 @@ return {
             -- Enable Telescope extensions if they are installed
             pcall(require('telescope').load_extension, 'fzf')
             pcall(require('telescope').load_extension, 'ui-select')
+            pcall(require('telescope').load_extension, 'ast_grep')
 
             -- See `:help telescope.builtin`
             local builtin = require 'telescope.builtin'
@@ -132,6 +143,9 @@ return {
             vim.keymap.set('n', '<leader>sn', function()
                 builtin.find_files { cwd = vim.fn.stdpath 'config' }
             end, { desc = '[S]earch [N]eovim files' })
+
+            -- AST Grep
+            vim.keymap.set('n', '<leader>sa', ':Telescope ast_grep<CR>', { desc = '[S]earch [A]ST' })
         end,
     },
     {

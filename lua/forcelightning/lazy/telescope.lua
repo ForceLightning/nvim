@@ -24,6 +24,7 @@ return {
             { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
 
             { 'Marskey/telescope-sg' },
+
         },
         config = function()
             -- Telescope is a fuzzy finder that comes with a lot of different things that it can fuzzy

@@ -70,8 +70,7 @@ return {
                 before = "",
                 keyword = "bg",
                 after = "fg",
-                pattern = [[.*<(KEYWORDS)(\([^\)]*\))?:]],
-                -- pattern = [[.*<(KEYWORDS)\s*:]]
+                pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]],
                 comments_only = true,
                 max_line_len = 400,
                 exclude = {}
@@ -85,7 +84,7 @@ return {
                     "--line-number",
                     "--column",
                 },
-                pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]],
+                pattern = [[\b((KEYWORDS)%(\(.{-1,}\))?):]]
             }
         }
     },

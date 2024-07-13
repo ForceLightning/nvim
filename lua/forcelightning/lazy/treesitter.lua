@@ -14,6 +14,7 @@ return {
                 --  If you are experiencing weird indent issues, add the language to the list of
                 --  additional_vim_regex_highlighting and disable languages for indent.
                 additional_vim_regex_highlighting = { 'ruby' },
+                disable = { "latex" },
             },
             indent = { enable = true, disable = { 'ruby' } },
         },

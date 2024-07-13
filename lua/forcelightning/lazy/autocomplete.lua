@@ -24,7 +24,11 @@ return {
                         config = function(_, opts)
                             if opts then require('luasnip').config.setup(opts) end
                             vim.tbl_map(
-                                function(type) require('luasnip.loaders.from_' .. type).lazy_load() end,
+                                function(type)
+                                    require('luasnip.loaders.from_' .. type).lazy_load {
+                                        exclude = { "tex", "latex" },
+                                    }
+                                end,
                                 { "vscode", "snipmate", "lua" }
                             )
                             -- friendly snippets - enable standarised comments snippets
@@ -45,7 +49,13 @@ return {
                     },
                 },
                 config = function()
+                    local ls = require("luasnip")
                     require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./snippets" } })
+                    require("luasnip.loaders.from_lua").lazy_load({ paths = { "./lua-snippets" } })
+
+                    vim.keymap.set('n', '<leader>sl', function()
+                        require('luasnip.loaders').edit_snippet_files()
+                    end, { noremap = true, silent = true, desc = "[S]earch [L]uaSnippets" })
                 end
             },
             'saadparwaiz1/cmp_luasnip',
@@ -128,6 +138,10 @@ return {
                     { name = 'luasnip' },
                     { name = 'path' },
                 },
+            }
+            luasnip.config.set_config {
+                history = false,
+                enable_autosnippets = true,
             }
         end,
     },

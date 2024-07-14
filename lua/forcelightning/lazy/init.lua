@@ -68,7 +68,7 @@ return {
             -- signs = false
             highlight = {
                 before = "",
-                keyword = "bg",
+                keyword = "wide",
                 after = "fg",
                 pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]],
                 comments_only = true,

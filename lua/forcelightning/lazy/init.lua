@@ -30,17 +30,16 @@ return {
         config = function()
             require('which-key').setup()
             -- Document existing key chains
-            require('which-key').register {
-                ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-                ['<leader>d'] = { name = '[D]ebug', _ = 'which_key_ignore' },
-                ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-                ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-                ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-                ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-                ['<leader>x'] = { name = '[X] Trouble', _ = 'which_key_ignore' },
-                ['<leader>u'] = { name = '[U]ndo Tree', _ = 'which_key_ignore' },
-                ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-                -- ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+            require('which-key').add {
+                { "<leader>c", group = "[C]ode" },
+                { "<leader>d", group = "[D]ebug" },
+                { "<leader>r", group = "[R]ename" },
+                { "<leader>s", group = "[S]earch" },
+                { "<leader>w", group = "[W]orkspace" },
+                { "<leader>t", group = "[T]oggle" },
+                { "<leader>x", group = "[X] Trouble" },
+                { "<leader>u", group = "[U]ndo Tree" },
+                { "<leader>g", group = "[G]it" },
             }
             -- Visual mode
             -- require('which-key').register({
@@ -65,6 +64,7 @@ return {
         event = 'VimEnter',
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {
+            -- TODO(chris): TEST
             -- signs = false
             highlight = {
                 before = "",
@@ -86,7 +86,18 @@ return {
                 },
                 pattern = [[\b((KEYWORDS)%(\(.{-1,}\))?):]]
             }
-        }
+        },
+        config = function(_, opts)
+            require('todo-comments').setup(opts)
+
+            -- Open TODOs in trouble
+            vim.keymap.set("n", "<leader>xt", ":Trouble todo<CR>",
+                { noremap = true, silent = true, desc = "[X]Trouble [T]ODO" })
+
+            -- Open TODOs in Telescope
+            vim.keymap.set("n", "<leader>st", ":TodoTelescope<CR>",
+                { noremap = true, silent = true, desc = "[S]earch [T]ODO" })
+        end
     },
 
     {

@@ -107,7 +107,9 @@ return {
 
                     -- Opens a popup that displays documentation about your word under your cursor
                     --  See `:help K` for why this keymap.
-                    map('K', vim.lsp.buf.hover, 'Hover Documentation')
+                    -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
+                    vim.api.nvim_buf_set_keymap(event.buf, 'n', "K", "<cmd>lua vim.lsp.buf.hover()<CR>",
+                        { desc = "LSP: Hover" })
 
                     -- WARN: This is not Goto Definition, this is Goto Declaration.
                     --  For example, in C this would take you to the header.

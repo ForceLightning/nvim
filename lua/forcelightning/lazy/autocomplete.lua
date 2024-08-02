@@ -2,6 +2,7 @@ return {
     {
         'hrsh7th/nvim-cmp',
         event = 'InsertEnter',
+        commit = "7e348da",
         dependencies = {
             -- Snippet Engine & its associated nvim-cap source
             {

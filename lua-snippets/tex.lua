@@ -232,7 +232,8 @@ local function parse_snippets(snippet)
         wordTrig = snippet.options:find("W"),
         regTrig = snippet.options:find("r"),
         snippetType = snippetType,
-    }, snippet.replacement, { condition = condition })
+        condition = condition,
+    }, snippet.replacement)
 end
 
 

@@ -18,7 +18,7 @@ return {
                             return false
                         end
                         return true
-                    end
+                    end,
                 }
             })
 
@@ -32,9 +32,50 @@ return {
                 end
             end, { desc = "Super Tab" })
 
-            -- Toggles copilot
-            vim.keymap.set("n", "<leader>tc", ":Copilot toggle<CR>",
-                { noremap = true, silent = true, desc = "[T]oggle [C]opilot completions" })
+            vim.api.nvim_create_user_command("CopilotDisable", function(args)
+                if args.bang then
+                    -- CopilotDisable! will disable copilot just for this buffer
+                    -- NOTE: Actually not sure if this does anything
+                    vim.b.disable_copilot = true
+                    vim.cmd(":Copilot disable")
+                else
+                    vim.g.disable_copilot = true
+                    vim.cmd(":Copilot disable")
+                end
+                vim.print("Copilot disabled.")
+            end, {
+                desc = "Disable copilot",
+                bang = true,
+            })
+
+            vim.api.nvim_create_user_command("CopilotEnable", function()
+                vim.b.disable_copilot = false
+                vim.g.disable_copilot = false
+                vim.cmd(":Copilot enable")
+                vim.print("Copilot enabled.")
+            end, {
+                desc = "Re-enable copilot",
+            })
+
+            vim.keymap.set("n", "<leader>tc", function()
+                if vim.b.disable_copilot or vim.g.disable_copilot then
+                    vim.cmd("CopilotEnable")
+                else
+                    vim.cmd("CopilotDisable")
+                end
+            end, { desc = "[T]oggle [C]opilot completions" })
+
+            -- Disable copilot by default
+            vim.api.nvim_create_autocmd("InsertEnter", {
+                pattern = "*",
+                callback = function()
+                    if vim.b.disable_copilog == nil or vim.g.disable_copilot == nil then
+                        vim.b.disable_copilot = true
+                        vim.g.disable_copilot = true
+                        vim.cmd("CopilotDisable")
+                    end
+                end
+            })
         end,
     },
 

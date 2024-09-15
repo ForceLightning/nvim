@@ -64,7 +64,6 @@ return {
         event = 'VimEnter',
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {
-            -- TODO(chris): TEST
             -- signs = false
             highlight = {
                 before = "",
@@ -75,6 +74,10 @@ return {
                 max_line_len = 400,
                 exclude = {}
             },
+            keywords = {
+                GUARD = { icon = "", color = "warning" },
+            },
+            merge_keywords = true,
             search = {
                 command = "rg",
                 args = {
@@ -84,7 +87,7 @@ return {
                     "--line-number",
                     "--column",
                 },
-                pattern = [[\b((KEYWORDS)%(\(.{-1,}\))?):]]
+                pattern = [[\b(KEYWORDS):]]
             }
         },
         config = function(_, opts)
@@ -97,6 +100,15 @@ return {
             -- Open TODOs in Telescope
             vim.keymap.set("n", "<leader>st", ":TodoTelescope<CR>",
                 { noremap = true, silent = true, desc = "[S]earch [T]ODO" })
+
+            -- Jump to next/previous todo comment
+            vim.keymap.set("n", "]t", function()
+                require('todo-comments').jump_next()
+            end, { desc = "Next [T]odo comment " })
+
+            vim.keymap.set("n", "[t", function()
+                require('todo-comments').jump_prev()
+            end, { desc = "Previous [T]odo comment " })
         end
     },
 

@@ -60,7 +60,7 @@ return {
                     }
 
                     -- Python
-                    dap.defaults.python.exception_breakpoints = { "raised", "uncaught" }
+                    dap.defaults.python.exception_breakpoints = { 'raised' }
                 end,
             },
             "nvim-neotest/nvim-nio",
@@ -124,5 +124,8 @@ return {
         dependencies = {
             "mfussenegger/nvim-dap"
         }
+    },
+    {
+        "ldelossa/nvim-dap-projects"
     }
 }

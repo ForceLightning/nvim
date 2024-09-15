@@ -20,8 +20,9 @@ return {
             formatters_by_ft = {
                 python = { "isort", "black" },
                 rust = { "rustfmt" },
+                javascript = { "prettierd", "prettier", stop_after_first = true },
+                json = { "injected" },
             },
-
             format_on_save = function(bufnr)
                 if slow_format_filetypes[vim.bo[bufnr].filetype] or vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                     return
@@ -34,7 +35,6 @@ return {
 
                 return { timeout_ms = 500, lsp_fallback = true }, on_format
             end,
-
             format_after_save = function(bufnr)
                 if not slow_format_filetypes[vim.bo[bufnr].filetype] then
                     return
@@ -42,6 +42,15 @@ return {
                 return { lsp_fallback = true }
             end,
         })
+
+        require("conform").formatters.injected = {
+            options = {
+                ignore_errors = true,
+                lang_to_formatters = {
+                    json = { "jq" },
+                },
+            }
+        }
 
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*",

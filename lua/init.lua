@@ -195,3 +195,28 @@ dap.listeners.after.event_terminated['me'] = function()
     end
     keymap_restore = {}
 end
+
+-- require("nvim-dap-projects").search_project_config()
+
+-- Update this path
+local extension_path = require("mason-registry").get_package("codelldb"):get_install_path() ..
+    "/extension"
+local codelldb_path = extension_path .. 'adapter/codelldb'
+local liblldb_path = extension_path .. 'lldb/lib/liblldb'
+local this_os = vim.uv.os_uname().sysname;
+-- This path is different on Windows
+if this_os:find "Windows" then
+    codelldb_path = extension_path .. [[adapter\codelldb.exe]]
+    liblldb_path = extension_path .. [[lldb\bin\liblldb.dll]]
+else
+    liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
+end
+
+vim.g.rustaceanvim = function()
+    local cfg = require("rustaceanvim.config")
+    return {
+        dap = {
+            adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path)
+        }
+    }
+end

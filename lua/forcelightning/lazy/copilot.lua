@@ -3,6 +3,7 @@ return {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
         event = "InsertEnter",
+        lazy = true,
         config = function()
             require("copilot").setup({
                 suggestion = {
@@ -12,12 +13,14 @@ return {
                     }
                 },
                 filetypes = {
+                    ["."] = false,
                     sh = function()
                         if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
                             -- disable for .env files
                             return false
+                        else
+                            return true
                         end
-                        return true
                     end,
                 }
             })
@@ -65,17 +68,8 @@ return {
                 end
             end, { desc = "[T]oggle [C]opilot completions" })
 
-            -- Disable copilot by default
-            vim.api.nvim_create_autocmd("InsertEnter", {
-                pattern = "*",
-                callback = function()
-                    if vim.b.disable_copilog == nil or vim.g.disable_copilot == nil then
-                        vim.b.disable_copilot = true
-                        vim.g.disable_copilot = true
-                        vim.cmd("CopilotDisable")
-                    end
-                end
-            })
+            -- Disable copilot on load.
+            vim.cmd("CopilotDisable")
         end,
     },
 

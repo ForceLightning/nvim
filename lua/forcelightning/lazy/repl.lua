@@ -1,0 +1,3 @@
+return {
+    "sillybun/vim-repl"
+}

@@ -93,6 +93,7 @@ return {
         ft = { 'python' },
         config = function()
             local dap = require('dap')
+            local dapui = require('dapui')
             local dap_python = require('dap-python')
 
             function get_python_path()
@@ -112,9 +113,76 @@ return {
                 return result
             end
 
+            -- Modify default configs.
+
             local path = get_python_path()
+
+            local configs = dap.configurations.python or {}
+            dap.configurations.python = configs
+            table.insert(configs,
+                -- Launch files
+                {
+                    type = 'python',
+                    request = 'launch',
+                    name = 'Launch file',
+                    program = '${file}',
+                    console =
+                    'integratedTerminal',
+                    pythonPath = path,
+                    justMyCode = false,
+                }
+            )
+            -- Launch file with arguments (modified)
+            table.insert(configs,
+                {
+                    type = 'python',
+                    request = 'launch',
+                    name = 'Launch file with arguments',
+                    program = '${file}',
+                    args = function()
+                        local args_string = vim.fn.input('Arguments: ')
+                        return vim.split(args_string, " +")
+                    end,
+                    console = 'integratedTerminal',
+                    pythonPath = path,
+                    justMyCode = false,
+                })
+            -- Attach remote
+            table.insert(configs,
+                {
+                    type = 'python',
+                    request = 'attach',
+                    name = 'Attach remote',
+                    connect = function()
+                        local host = vim.fn.input('Host [127.0.0.1]: ')
+                        host = host ~= '' and host or '127.0.0.1'
+                        local port = tonumber(vim.fn.input('Port [5678]: ')) or 5678
+                        return { host = host, port = port }
+                    end
+                })
+            -- Doctests
+            table.insert(configs,
+                {
+                    type = 'python',
+                    request = 'launch',
+                    name = 'Run doctests in file',
+                    module = 'doctest',
+                    args = { "${file}" },
+                    noDebug = true,
+                    console =
+                    'integratedTerminal',
+                    pythonPath = path,
+                }
+            )
+
+            local opts = {
+                include_configs = false,
+            }
+
             -- dap_python.setup(path)
-            dap_python.setup("python")
+            dap_python.setup("python", opts)
+
+
 
             -- Function to resolve path to python to use for program or test execution.
             -- By default the `VIRTUAL_ENV` and `CONDA_PREFIX` environment variables are

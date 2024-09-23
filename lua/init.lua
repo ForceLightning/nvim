@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Spell checking
-function toggleSpellcheck()
+local function toggleSpellcheck()
     local spell = vim.opt_local.spell:get()
     vim.opt_local.spell = not spell
     if spell then
@@ -108,6 +108,18 @@ end
 
 vim.keymap.set('n', [[<leader>\]], toggleSpellcheck, { desc = "Toggles spellchecking" })
 vim.keymap.set('i', '<M-L>', '<C-g>u<Esc>[s1z=`]a<C-g>u', { desc = "Correct the most recent spellcheck error." })
+
+-- Toggle conceal level
+local function toggleConceal()
+    local conceal = vim.opt_local.conceallevel:get()
+    if conceal > 0 then
+        vim.opt_local.conceallevel = 0
+    else
+        vim.opt_local.conceallevel = 2
+    end
+    vim.print("Conceal level: " .. vim.opt_local.conceallevel:get())
+end
+vim.keymap.set('n', '<leader>tcl', toggleConceal, { desc = "[T]oggle [C]onceal" })
 
 -- -- LuaSnips
 -- local M = {}

@@ -60,7 +60,7 @@ return {
                 desc = "Re-enable copilot",
             })
 
-            vim.keymap.set("n", "<leader>tc", function()
+            vim.keymap.set("n", "<leader>tcp", function()
                 if vim.b.disable_copilot or vim.g.disable_copilot then
                     vim.cmd("CopilotEnable")
                 else

@@ -25,7 +25,7 @@ return {
             require('nvim-treesitter.install').prefer_git = true
 
             -- Make clang the compiler used by nvim-treesitter.
-            require('nvim-treesitter.install').compilers = { 'clang' }
+            require('nvim-treesitter.install').compilers = { 'clang', 'gcc' }
 
             ---@diagnostic disable-next-line:missing-fields
             require('nvim-treesitter.configs').setup(opts)

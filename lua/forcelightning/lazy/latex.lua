@@ -11,6 +11,7 @@ return {
                 let g:vimtex_view_general_viewer = "SumatraPDF"
                 let g:vimtex_quickfix_mode = 0
                 let g:tex_conceal='abdmg'
+                let g:vimtex_compiler_method='latexmk'
             ]]
         end
     },

@@ -139,6 +139,10 @@ return {
                     { name = 'luasnip' },
                     { name = 'path' },
                 },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered()
+                }
             }
             luasnip.config.set_config {
                 history = false,

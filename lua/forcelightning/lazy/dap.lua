@@ -96,7 +96,7 @@ return {
             local dapui = require('dapui')
             local dap_python = require('dap-python')
 
-            function get_python_path()
+            local function get_python_path()
                 local handle = io.popen("pipenv --py")
                 local result = "python"
                 if handle ~= nil then

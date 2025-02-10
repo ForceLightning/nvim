@@ -4,7 +4,7 @@ return {
         lazy = false,
         -- tag = "v2.15", uncomment to pin to a specific release.
         init = function()
-            if vim.fn.has('win32') then
+            if vim.loop.os_uname().sysname == "Windows_NT" then
                 vim.cmd [[
                     let g:vimtex_view_general_viewer = "SumatraPDF"
                 ]]

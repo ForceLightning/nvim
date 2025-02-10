@@ -364,9 +364,9 @@ local M = {
     { trigger = "matrix", replacement = [[\begin{matrix}$1\end{matrix}]],         options = "nA" },
 
     { trigger = "case",   replacement = "\\begin{cases}\n$1\n\\end{cases}",       options = "mA" },
-    { trigger = "align",  replacement = "\\begin{align}\n$1\n\\end{align}",       options = "mA" },
-    { trigger = "align*", replacement = "\\begin{align*}\n$1\n\\end{align*}",     options = "mA" },
-    { trigger = "bsal",   replacement = "\\begin{align*}\n\t$0\n\\end{align*}",   options = "tA" },
+    -- { trigger = "align",  replacement = "\\begin{align}\n$1\n\\end{align}",       options = "mA" },
+    -- { trigger = "align*", replacement = "\\begin{align*}\n$1\n\\end{align*}",     options = "mA" },
+    -- { trigger = "bsal",   replacement = "\\begin{align*}\n\t$0\n\\end{align*}",   options = "tA" },
     { trigger = "array",  replacement = "\\begin{array}\n\t$1\n\\end{array}",     options = "mA" },
 
     -- Brackets

@@ -4,14 +4,28 @@ return {
         lazy = false,
         -- tag = "v2.15", uncomment to pin to a specific release.
         init = function()
+            if vim.fn.has('macunix') then
+                vim.cmd [[
+                    let g:vimtex_view_general_viewer = "skim"
+                ]]
+            else
+                vim.cmd [[
+                    let g:vimtex_view_general_viewer = "SumatraPDF"
+                ]]
+            end
             -- VimTex configuration goes here, e.g.
             vim.cmd [[
                 let g:tex_flavor = 'latex'
-                " let g:vimtex_view_method = 'mupdf'
-                let g:vimtex_view_general_viewer = "SumatraPDF"
                 let g:vimtex_quickfix_mode = 0
                 let g:tex_conceal='abdmg'
                 let g:vimtex_compiler_method='latexmk'
+                let g:vimtex_env_toggle_math_map= {
+                \   '$' : '\(',
+                \   '$$': '\[',
+                \   '\[': 'equation',
+                \   '\(': '\[',
+                \   'equation': '\(',
+                \}
             ]]
         end
     },

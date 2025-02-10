@@ -4,13 +4,13 @@ return {
         lazy = false,
         -- tag = "v2.15", uncomment to pin to a specific release.
         init = function()
-            if vim.fn.has('macunix') then
+            if vim.fn.has('win32') then
                 vim.cmd [[
-                    let g:vimtex_view_general_viewer = "skim"
+                    let g:vimtex_view_general_viewer = "SumatraPDF"
                 ]]
             else
                 vim.cmd [[
-                    let g:vimtex_view_general_viewer = "SumatraPDF"
+                    let g:vimtex_view_method = "skim"
                 ]]
             end
             -- VimTex configuration goes here, e.g.

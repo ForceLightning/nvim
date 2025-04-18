@@ -76,6 +76,7 @@ return {
             },
             keywords = {
                 GUARD = { icon = "", color = "warning" },
+                DEBUG = { icon = "", color = "warning" },
             },
             merge_keywords = true,
             search = {

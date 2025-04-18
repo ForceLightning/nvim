@@ -152,7 +152,7 @@ return {
                     -- This may be unwanted, since they displace some of your code
                     if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
                         map('<leader>th', function()
-                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
                         end, '[T]oggle Inlay [H]ints')
                     end
                 end,
@@ -179,17 +179,19 @@ return {
             --      - settings (table): Override the default settings passed when initalising the
             --          server. For example, to see the options for `lua_ls`, you could go to:
             --          https://luals.github.io/wiki/settings/
-            local virtualenvs_dir = vim.fn.expand("$HOME/.virtualenvs/")
+
+            -- local virtualenvs_dir = vim.fn.expand("$HOME/.virtualenvs/")
+
             local servers = {
                 clangd = {},
                 -- gopls = {},
                 basedpyright = {
-                    root_dir = require("lspconfig.util").find_git_ancestor,
-                    settings = {
-                        analysis = {
-                            venvPath = virtualenvs_dir,
-                        },
-                    },
+                    -- root_dir = require("lspconfig.util").find_git_ancestor,
+                    -- settings = {
+                    --     analysis = {
+                    --         venvPath = virtualenvs_dir,
+                    --     },
+                    -- },
                 },
                 -- rust_analyzer = {},
                 lua_ls = {

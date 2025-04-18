@@ -2,7 +2,9 @@ return {
     'smoka7/hop.nvim',
     version = "v2",
     opts = {
-        keys = 'etovxqpdygfblzhckisuran'
+        keys = 'etovxqpdygfblzhckisuran',
+        jump_on_sole_occurrence = true,
+        case_insensitive = false,
     },
     config = function(opts)
         local hop = require('hop')

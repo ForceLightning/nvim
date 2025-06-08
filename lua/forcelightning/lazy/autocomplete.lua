@@ -4,7 +4,7 @@ return {
         event = 'InsertEnter',
         commit = "7e348da",
         dependencies = {
-            -- Snippet Engine & its associated nvim-cap source
+            -- Snippet Engine & its associated nvim-cmp source
             {
                 'L3MON4D3/LuaSnip',
                 build = (function()
@@ -138,11 +138,12 @@ return {
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                     { name = 'path' },
+                    { name = "lazydev", group_index = 0, }
                 },
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered()
-                }
+                },
             }
             luasnip.config.set_config {
                 history = false,

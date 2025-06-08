@@ -33,5 +33,15 @@ return {
             "<cmd>Trouble qflist toggle<cr>",
             desc = "[Q]uickfix List (Trouble)"
         },
+        {
+            "<M-j>",
+            "<cmd>cnext<CR>",
+            desc = "Next item in Quickfix list (Trouble)"
+        },
+        {
+            "<M-k>",
+            "<cmd>cprev<CR>",
+            desc = "Previous item in Quickfix list (Trouble)"
+        }
     },
 }

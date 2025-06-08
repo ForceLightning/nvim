@@ -10,10 +10,6 @@ return {
             -- Useful status updates for LSP.
             { 'j-hui/fidget.nvim',       opts = {} },
 
-            -- `neodev` configures Lua LSP for your Neovim config, runtime, and plugins.
-            -- Used for completion, annotations, and signatures of Neovim APIs.
-            { 'folke/neodev.nvim',       opts = {} },
-
             -- rustaceanvim
             {
                 'mrcjkb/rustaceanvim',
@@ -60,6 +56,17 @@ return {
                         end
                     })
                 end
+            -- LazyDev
+            {
+                "folke/lazydev.nvim",
+                ft = "lua",
+                opts = {
+                    library = {
+                        -- See configuration section for more details
+                        -- Load luvit types when the `vim.uv` word is found
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    }
+                }
             }
         },
         config = function()

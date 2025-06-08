@@ -211,8 +211,9 @@ end
 -- require("nvim-dap-projects").search_project_config()
 
 -- Update this path
-local extension_path = require("mason-registry").get_package("codelldb"):get_install_path() ..
-    "/extension"
+-- local extension_path = require("mason-registry").get_package("codelldb"):get_install_path() ..
+--     "/extension"
+local extension_path = vim.fn.expand("$MASON/packages/codelldb/extension/")
 local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb'
 local this_os = vim.uv.os_uname().sysname;
@@ -232,3 +233,27 @@ vim.g.rustaceanvim = function()
         }
     }
 end
+
+-- Sourcing lua and .vim files
+vim.keymap.set("n", "<space>xs", "<cmd>source %<CR>", { desc = "E[x]ecute ([s]ource) current file" })
+vim.keymap.set("n", "<space>xl", ":.lua<CR>", { desc = "E[x]ecute (source) current [l]ua file" })
+vim.keymap.set("v", "<space>xl", ":lua<CR>", { desc = "E[x]ecute (source) current [l]ua file lines" })
+
+-- Terminal mode
+vim.api.nvim_create_autocmd('TermOpen', {
+    group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+    callback = function()
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+    end,
+})
+
+vim.keymap.set('t', '<C-w>h', [[<C-\><C-n><C-w>h]], { silent = true })
+
+-- Small terminal
+vim.keymap.set('n', '<leader>st', function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 10)
+end)

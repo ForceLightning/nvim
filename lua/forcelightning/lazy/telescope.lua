@@ -147,6 +147,9 @@ return {
 
             -- AST Grep
             vim.keymap.set('n', '<leader>sa', ':Telescope ast_grep<CR>', { desc = '[S]earch [A]ST' })
+
+            -- Multigrep
+            require "config.multigrep".setup()
         end,
     },
     {

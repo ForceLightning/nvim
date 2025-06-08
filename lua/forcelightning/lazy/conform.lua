@@ -21,6 +21,7 @@ return {
                 python = { "isort", "black" },
                 rust = { "rustfmt" },
                 javascript = { "prettierd", "prettier", stop_after_first = true },
+                typescript = { "prettierd", "prettier" },
                 json = { "injected" },
             },
             format_on_save = function(bufnr)

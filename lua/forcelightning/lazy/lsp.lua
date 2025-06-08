@@ -56,6 +56,21 @@ return {
                         end
                     })
                 end
+            },
+            -- Omnisharp
+            {
+                'Hoffs/omnisharp-extended-lsp.nvim',
+            },
+
+            -- Roslyn
+            -- {
+            --     "seblyng/roslyn.nvim",
+            --     ft = "cs",
+            --     ---@module 'roslyn.config'
+            --     ---@type RoslynNvimConfig
+            --     opts = {}
+            -- }
+
             -- LazyDev
             {
                 "folke/lazydev.nvim",
@@ -224,10 +239,20 @@ return {
                                 enable = true,
                             },
                             logLevel = 'debug',
-                        }
+                        },
                     },
                     trace = 'messasges',
-                }
+                },
+                eslint = {},
+                omnisharp = {
+                    handlers = {
+                        ["textDocument/definition"] = require('omnisharp_extended').definition_handler,
+                        ["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
+                        ["textDocument/references"] = require('omnisharp_extended').references_handler,
+                        ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler,
+                    },
+                },
+                -- csharp_ls = {},
             }
 
             -- Ensure the servers and tools above are installed
@@ -242,11 +267,15 @@ return {
             -- available from within Neovim.
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
-                'stylua', -- Used to format Lua code
+                'stylua',   -- Used to format Lua code
+                'html-lsp', -- Used for HTML code.
+                'ts_ls',
             })
             require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
             require('mason-lspconfig').setup {
+                ensure_installed = {},
+                automatic_installation = false,
                 handlers = {
                     function(server_name)
                         local server = servers[server_name] or {}

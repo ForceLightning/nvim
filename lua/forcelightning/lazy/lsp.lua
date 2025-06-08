@@ -208,12 +208,50 @@ return {
                 clangd = {},
                 -- gopls = {},
                 basedpyright = {
+                    cmd = { "basedpyright-langserver", "--stdio" },
+                    filetypes = { "python" },
+                    root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
+                    settings = {
+                        analysis = {
+                            autoSearchPaths = true,
+                            diagnosticMode = "openFilesOnly",
+                            inlayHints = {
+                                genericTypes = true,
+                            }
+                        }
+                    }
                     -- root_dir = require("lspconfig.util").find_git_ancestor,
                     -- settings = {
                     --     analysis = {
                     --         venvPath = virtualenvs_dir,
                     --     },
                     -- },
+                },
+                ty = {
+                    cmd = { "uvx", "ty", "server" },
+                    filetypes = {
+                        "python"
+                    },
+                    root_dir = vim.fs.root(0,
+                        { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json",
+                            ".git" }),
+                    init_options = {
+                        -- settings = {
+                        --     "ty.experimental.completions.enable" = true
+                        -- }
+                    },
+                },
+                pyrefly = {
+                    cmd = { "uvx", "pyrefly", "lsp" },
+                    filetypes = {
+                        "python",
+                    },
+                    root_dir = vim.fs.root(0,
+                        { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json",
+                            ".git" }),
+                    settings = {
+                        python_interpreter = ".venv/Scripts/python.exe"
+                    }
                 },
                 -- rust_analyzer = {},
                 lua_ls = {
@@ -286,6 +324,12 @@ return {
                         require('lspconfig')[server_name].setup(server)
                     end,
                 },
+                automatic_enable = {
+                    exclude = {
+                        "pyrefly",
+                        "ty"
+                    }
+                }
             }
 
             -- Use Ruff alongside Pyright

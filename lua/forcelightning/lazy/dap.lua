@@ -113,6 +113,7 @@ return {
                 return result
             end
 
+            -- (1) Python
             -- Modify default configs.
 
             local path = get_python_path()

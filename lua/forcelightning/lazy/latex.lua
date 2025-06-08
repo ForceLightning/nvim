@@ -6,7 +6,9 @@ return {
         init = function()
             if vim.loop.os_uname().sysname == "Windows_NT" then
                 vim.cmd [[
-                    let g:vimtex_view_general_viewer = "SumatraPDF"
+                    let g:vimtex_view_general_viewer = 'SumatraPDF'
+                    let g:vimtex_view_general_options
+                        \ = '-reuse-instance -forward-search @tex @line @pdf'
                 ]]
             else
                 vim.cmd [[

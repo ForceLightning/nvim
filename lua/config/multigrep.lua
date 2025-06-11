@@ -51,6 +51,4 @@ M.setup = function()
     vim.keymap.set("n", "<leader>sm", live_multigrep, { desc = "[S]earch [M]ultigrep" })
 end
 
-live_multigrep()
-
 return M

@@ -150,4 +150,8 @@ return {
             require('deadcolumn').setup(opts)
         end
     },
+
+    {
+        "lambdalisue/vim-suda",
+    }
 }

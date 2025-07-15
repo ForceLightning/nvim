@@ -1,6 +1,8 @@
 return {
-    'smoka7/hop.nvim',
-    version = "v2",
+    -- 'smoka7/hop.nvim',
+    -- version = "v2.*",
+    'myarcana/hop.nvim',
+    version = "4599c7a", -- Fixes issues with linebreaks?
     opts = {
         keys = 'etovxqpdygfblzhckisuran',
         jump_on_sole_occurrence = true,

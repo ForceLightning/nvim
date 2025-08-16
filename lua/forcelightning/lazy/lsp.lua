@@ -75,13 +75,17 @@ return {
             {
                 "folke/lazydev.nvim",
                 ft = "lua",
+                dependencies = {
+                    { 'gonstoll/wezterm-types', lazy = true },
+                },
                 opts = {
                     library = {
                         -- See configuration section for more details
                         -- Load luvit types when the `vim.uv` word is found
                         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                        { path = 'wezterm-types',      mods = { 'wezterm' } },
                     }
-                }
+                },
             }
         },
         config = function()
@@ -321,7 +325,7 @@ return {
                         -- configuration above. Useful when disabling certain features of an LSP (for
                         -- example, turning off formatting for tsserver)
                         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-                        require('lspconfig')[server_name].setup(server)
+                        vim.lsp.enable(server_name)
                     end,
                 },
                 automatic_enable = {
@@ -346,6 +350,18 @@ return {
                     end
                 end,
                 desc = "LSP: Disable hover capability from Ruff."
+            })
+
+            vim.diagnostic.config({
+                virtual_text = true,
+                underline = true,
+                update_in_insert = false,
+                severity_sort = true,
+                float = {
+                    border = "rounded",
+                    source = true,
+                },
+                signs = true,
             })
         end,
     },
